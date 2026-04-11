@@ -19,7 +19,10 @@ The Emergent platform's ingress/Cloudflare layer was overriding the backend's CO
    - Modified `AdminDashboard.jsx` - uses `getAuthHeaders()` instead of `withCredentials: true`
    - Modified `server.py` - login endpoint now returns token in response body
    - Updated `backend/.env` - CORS_ORIGINS set to actual frontend URL
-2. **Testing**: All backend (100%) and frontend (100%) tests passed
+2. **Feature: Order Delete** - Admin can now delete orders from admin panel
+   - Backend: `DELETE /api/admin/orders/{order_id}` endpoint added
+   - Frontend: Delete button on each order card with confirmation dialog
+3. **Testing**: All backend (100%) and frontend (100%) tests passed
 
 ## Core Requirements
 - [x] User can place orders via contact form
