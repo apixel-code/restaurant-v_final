@@ -82,6 +82,21 @@ const AdminDashboard = () => {
     }
   };
 
+  const deleteOrder = async (orderId) => {
+    if (!window.confirm('এই অর্ডার ডিলিট করতে চান?')) return;
+    try {
+      await axios.delete(`${API_URL}/api/admin/orders/${orderId}`, { headers: getAuthHeaders() });
+      toast.success('অর্ডার ডিলিট হয়েছে');
+      fetchOrders();
+    } catch (error) {
+      if (error.response?.status === 401) {
+        await checkAuth();
+        return;
+      }
+      toast.error('অর্ডার ডিলিট ব্যর্থ');
+    }
+  };
+
   const deleteMenuItem = async (itemId) => {
     if (!window.confirm('এই আইটেম ডিলিট করতে চান?')) return;
     try {
@@ -341,6 +356,13 @@ const AdminDashboard = () => {
                             <Truck size={16} /> ডেলিভার্ড
                           </button>
                         )}
+                        <button
+                          onClick={() => deleteOrder(order.id)}
+                          className="flex items-center gap-1 bg-red-500/10 text-red-400 px-3 py-2 rounded-lg text-sm hover:bg-red-500/20 border border-red-500/20"
+                          data-testid={`delete-order-${order.id}`}
+                        >
+                          <Trash2 size={16} /> ডিলিট
+                        </button>
                       </div>
                     </div>
                   </motion.div>

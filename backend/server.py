@@ -290,6 +290,14 @@ async def update_order_status(order_id: str, status: str, admin: dict = Depends(
         raise HTTPException(status_code=404, detail="অর্ডার পাওয়া যায়নি")
     return {"success": True, "message": "স্ট্যাটাস আপডেট হয়েছে"}
 
+@api_router.delete("/admin/orders/{order_id}")
+async def delete_order(order_id: str, admin: dict = Depends(get_current_admin)):
+    """Delete an order"""
+    result = await db.orders.delete_one({"id": order_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="অর্ডার পাওয়া যায়নি")
+    return {"success": True, "message": "অর্ডার ডিলিট হয়েছে"}
+
 # ============ Startup Events ============
 
 @app.on_event("startup")

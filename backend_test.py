@@ -151,6 +151,15 @@ class BurgerHouseAPITester:
             }
         )
 
+    def test_delete_order(self, order_id):
+        """Delete an order (admin only)"""
+        return self.run_test(
+            f"Delete Order {order_id}",
+            "DELETE",
+            f"api/admin/orders/{order_id}",
+            200
+        )
+
     def test_admin_logout(self):
         """Test admin logout"""
         return self.run_test("Admin Logout", "POST", "api/admin/logout", 200)
@@ -194,6 +203,24 @@ class BurgerHouseAPITester:
 
         # Test menu management
         self.test_create_menu_item()
+
+        # NEW TEST: Test order deletion
+        # Create another order specifically for deletion test
+        delete_test_order_id = self.test_create_order("ডিলিট টেস্ট", "01987654321", "টেস্ট ঠিকানা", "টেস্ট পিৎজা")
+        if delete_test_order_id:
+            # Verify order exists before deletion
+            orders_before = self.test_get_orders()
+            order_exists_before = any(order.get('id') == delete_test_order_id for order in orders_before) if orders_before else False
+            self.log_test("Order Exists Before Delete", order_exists_before, f"Order {delete_test_order_id} exists before deletion")
+            
+            # Delete the order
+            delete_success, _ = self.test_delete_order(delete_test_order_id)
+            
+            if delete_success:
+                # Verify order is removed after deletion
+                orders_after = self.test_get_orders()
+                order_exists_after = any(order.get('id') == delete_test_order_id for order in orders_after) if orders_after else False
+                self.log_test("Order Removed After Delete", not order_exists_after, f"Order {delete_test_order_id} {'still exists' if order_exists_after else 'successfully removed'} after deletion")
 
         # Test logout
         self.test_admin_logout()
