@@ -1,0 +1,196 @@
+/* Burger House Restaurant - Custom Styles */
+
+/* Hero section styles */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+/* Button glow effect */
+.btn-glow {
+  box-shadow: 0 0 15px rgba(255, 159, 28, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  box-shadow:
+    0 0 25px rgba(255, 159, 28, 0.5),
+    0 0 50px rgba(255, 159, 28, 0.3);
+  transform: scale(1.05);
+}
+
+/* Menu card styles */
+.menu-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover {
+  border-color: rgba(255, 159, 28, 0.5);
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 159, 28, 0.1);
+}
+
+/* WhatsApp button */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+}
+
+/* Navigation active link */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff9f1c;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Blog card */
+.blog-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.blog-card:hover {
+  border-color: rgba(255, 159, 28, 0.3);
+  transform: translateY(-5px);
+}
+
+/* Form input styles */
+.form-input {
+  background: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.form-input.with-icon {
+  padding-left: 48px;
+}
+
+.form-input.with-icon-textarea {
+  padding-left: 48px;
+  padding-top: 12px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #ff9f1c;
+  box-shadow: 0 0 0 3px rgba(255, 159, 28, 0.2);
+}
+
+.form-input::placeholder {
+  color: #71717a;
+}
+
+/* Category tab */
+.category-tab {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: #a1a1aa;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.category-tab:hover {
+  background: rgba(255, 159, 28, 0.1);
+  color: #ff9f1c;
+}
+
+.category-tab.active {
+  background: #ff9f1c;
+  color: #000;
+  border-color: #ff9f1c;
+}
+
+/* Footer link hover */
+.footer-link {
+  color: #a1a1aa;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #ff9f1c;
+}
+
+/* Section divider */
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff9f1c 0%, #ffbf00 100%);
+  border-radius: 2px;
+}
+
+/* Price tag */
+.price-tag {
+  background: linear-gradient(135deg, #ff9f1c 0%, #f77f00 100%);
+  color: #000;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+}
+
+/* Toast custom style */
+.toast-custom {
+  background: #171717 !important;
+  color: white !important;
+  border: 1px solid rgba(255, 159, 28, 0.3) !important;
+}
