@@ -14,7 +14,7 @@ import {
   X,
   XCircle
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react'; // useCallback যোগ করা হয়েছে
 import toast from 'react-hot-toast';
 import { useAdmin, getAuthHeaders } from '../context/AdminContext';
 
@@ -30,15 +30,8 @@ const AdminDashboard = () => {
   const [editingItem, setEditingItem] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    if (activeTab === 'orders') {
-      fetchOrders();
-    } else if (activeTab === 'menu') {
-      fetchMenuItems();
-    }
-  }, [activeTab]);
-
-  const fetchOrders = async () => {
+  // fetchOrders কে useCallback দিয়ে র‍্যাপ করা হয়েছে যাতে Dependency এরর না আসে
+  const fetchOrders = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.get(`${API_URL}/api/admin/orders`, { headers: getAuthHeaders() });
@@ -51,9 +44,10 @@ const AdminDashboard = () => {
       toast.error('অর্ডার লোড করতে সমস্যা হয়েছে');
     }
     setLoading(false);
-  };
+  }, [checkAuth]);
 
-  const fetchMenuItems = async () => {
+  // fetchMenuItems কে useCallback দিয়ে র‍্যাপ করা হয়েছে
+  const fetchMenuItems = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.get(`${API_URL}/api/menu`);
@@ -62,7 +56,15 @@ const AdminDashboard = () => {
       toast.error('মেনু লোড করতে সমস্যা হয়েছে');
     }
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'orders') {
+      fetchOrders();
+    } else if (activeTab === 'menu') {
+      fetchMenuItems();
+    }
+  }, [activeTab, fetchOrders, fetchMenuItems]); // এখানে ফাংশনগুলো যোগ করা হয়েছে
 
   const updateOrderStatus = async (orderId, status) => {
     try {
@@ -187,9 +189,8 @@ const AdminDashboard = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-zinc-900 border-r border-white/10 z-50 transform transition-transform duration-300 lg:translate-x-0 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`fixed top-0 left-0 h-full w-64 bg-zinc-900 border-r border-white/10 z-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         {/* Logo */}
         <div className="p-5 border-b border-white/10">
@@ -213,11 +214,10 @@ const AdminDashboard = () => {
                 setActiveTab(item.id);
                 setSidebarOpen(false);
               }}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                activeTab === item.id
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === item.id
                   ? 'bg-orange-500 text-black'
                   : 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
-              }`}
+                }`}
               data-testid={`nav-${item.id}`}
             >
               <item.icon size={20} />
@@ -633,11 +633,10 @@ const MenuModal = ({ isOpen, onClose, editingItem, onSuccess }) => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-xl font-bold transition-all ${
-              loading
+            className={`w-full py-3 rounded-xl font-bold transition-all ${loading
                 ? 'bg-zinc-700 text-zinc-400'
                 : 'bg-orange-500 text-black hover:bg-orange-600'
-            }`}
+              }`}
             data-testid="menu-submit-btn"
           >
             {loading ? 'সেভ হচ্ছে...' : editingItem ? 'আপডেট করুন' : 'যোগ করুন'}
