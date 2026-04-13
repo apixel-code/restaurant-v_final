@@ -1,19 +1,31 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 import { clientConfig } from '@/config';
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-    Check,
-    ChefHat,
-    LogOut,
-    Menu,
-    Pencil,
-    Plus,
-    ShoppingBag,
-    Trash2,
-    Truck,
-    UtensilsCrossed,
-    X,
-    XCircle
+  AlertTriangle,
+  Check,
+  ChefHat,
+  LogOut,
+  Menu,
+  Pencil,
+  Plus,
+  ShoppingBag,
+  Trash2,
+  Truck,
+  UtensilsCrossed,
+  X,
+  XCircle
 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react'; // useCallback যোগ করা হয়েছে
 import toast from 'react-hot-toast';
@@ -30,6 +42,7 @@ const AdminDashboard = () => {
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   // fetchOrders কে useCallback দিয়ে র‍্যাপ করা হয়েছে যাতে Dependency এরর না আসে
   const fetchOrders = useCallback(async () => {
@@ -85,33 +98,44 @@ const AdminDashboard = () => {
     }
   };
 
-  const deleteOrder = async (orderId) => {
-    if (!window.confirm(clientConfig.admin.orderDeleteConfirm)) return;
-    try {
-      await axios.delete(`${API_URL}/api/admin/orders/${orderId}`, { headers: getAuthHeaders() });
-      toast.success(clientConfig.admin.orderDeleteSuccess);
-      fetchOrders();
-    } catch (error) {
-      if (error.response?.status === 401) {
-        await checkAuth();
-        return;
-      }
-      toast.error(clientConfig.admin.orderDeleteFailure);
-    }
+  const requestOrderDelete = (order) => {
+    setDeleteTarget({
+      kind: 'order',
+      id: order.id,
+      title: order.name,
+      description: order.item,
+    });
   };
 
-  const deleteMenuItem = async (itemId) => {
-    if (!window.confirm(clientConfig.admin.menuDeleteConfirm)) return;
+  const requestMenuDelete = (item) => {
+    setDeleteTarget({
+      kind: 'menu',
+      id: item.id,
+      title: item.name,
+      description: item.description,
+    });
+  };
+
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+
     try {
-      await axios.delete(`${API_URL}/api/admin/menu/${itemId}`, { headers: getAuthHeaders() });
-      toast.success(clientConfig.admin.menuDeleteSuccess);
-      fetchMenuItems();
+      if (deleteTarget.kind === 'order') {
+        await axios.delete(`${API_URL}/api/admin/orders/${deleteTarget.id}`, { headers: getAuthHeaders() });
+        toast.success(clientConfig.admin.orderDeleteSuccess);
+        fetchOrders();
+      } else {
+        await axios.delete(`${API_URL}/api/admin/menu/${deleteTarget.id}`, { headers: getAuthHeaders() });
+        toast.success(clientConfig.admin.menuDeleteSuccess);
+        fetchMenuItems();
+      }
+      setDeleteTarget(null);
     } catch (error) {
       if (error.response?.status === 401) {
         await checkAuth();
         return;
       }
-      toast.error(clientConfig.admin.menuDeleteFailure);
+      toast.error(deleteTarget.kind === 'order' ? clientConfig.admin.orderDeleteFailure : clientConfig.admin.menuDeleteFailure);
     }
   };
 
@@ -361,7 +385,7 @@ const AdminDashboard = () => {
                           </button>
                         )}
                         <button
-                          onClick={() => deleteOrder(order.id)}
+                          onClick={() => requestOrderDelete(order)}
                           className="flex items-center gap-1 bg-red-500/10 text-red-400 px-3 py-2 rounded-lg text-sm hover:bg-red-500/20 border border-red-500/20"
                           data-testid={`delete-order-${order.id}`}
                         >
@@ -427,7 +451,7 @@ const AdminDashboard = () => {
                           <Pencil size={14} /> এডিট
                         </button>
                         <button
-                          onClick={() => deleteMenuItem(item.id)}
+                          onClick={() => requestMenuDelete(item)}
                           className="flex items-center justify-center gap-1 bg-red-500/20 text-red-400 px-3 py-2 rounded-lg text-sm hover:bg-red-500/30"
                           data-testid={`delete-${item.id}`}
                         >
@@ -453,6 +477,53 @@ const AdminDashboard = () => {
         editingItem={editingItem}
         onSuccess={fetchMenuItems}
       />
+
+      <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => !open && setDeleteTarget(null)}>
+        <AlertDialogContent className="border border-white/10 bg-zinc-950 text-white shadow-2xl sm:max-w-xl">
+          <AlertDialogHeader className="text-left sm:text-left">
+            <div className="mb-2 flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-500/10 text-red-400">
+                <AlertTriangle size={22} />
+              </div>
+              <div>
+                <AlertDialogTitle className="text-xl font-bold text-white">
+                  {deleteTarget?.kind === 'order' ? 'Delete Order' : 'Delete Menu Item'}
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-zinc-400">
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4">
+              <p className="text-sm text-zinc-400">You are about to delete</p>
+              <p className="mt-1 text-lg font-semibold text-white">{deleteTarget?.title}</p>
+              {deleteTarget?.description && (
+                <p className="mt-2 text-sm text-zinc-500 line-clamp-2">{deleteTarget.description}</p>
+              )}
+            </div>
+
+            <p className="text-sm text-zinc-400">
+              {deleteTarget?.kind === 'order'
+                ? 'The order record will be removed permanently.'
+                : 'The menu item will be removed permanently from the dashboard.'}
+            </p>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter className="gap-3 sm:gap-3">
+            <AlertDialogCancel asChild>
+              <Button variant="outline" className="border-white/10 bg-transparent text-white hover:bg-white/10 hover:text-white">
+                Cancel
+              </Button>
+            </AlertDialogCancel>
+            <AlertDialogAction asChild>
+              <Button onClick={handleDelete} className="bg-red-500 text-white hover:bg-red-600">
+                Delete
+              </Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
