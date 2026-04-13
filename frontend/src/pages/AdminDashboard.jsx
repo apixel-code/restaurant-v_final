@@ -136,6 +136,7 @@ const AdminDashboard = () => {
         return;
       }
       toast.error(deleteTarget.kind === 'order' ? clientConfig.admin.orderDeleteFailure : clientConfig.admin.menuDeleteFailure);
+      toast.error('ডিলিট ব্যর্থ হয়েছে');
     }
   };
 
