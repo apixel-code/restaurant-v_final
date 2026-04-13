@@ -239,6 +239,27 @@ async def create_order(order: OrderCreate):
 async def get_orders(admin: dict = Depends(get_current_admin)):
     return await db.orders.find({}, {"_id": 0}).sort("created_at", -1).to_list(100)
 
+@api_router.put("/admin/orders/{order_id}/status")
+async def update_order_status(order_id: str, status: str, admin: dict = Depends(get_current_admin)):
+    allowed_statuses = {"pending", "confirmed", "preparing", "delivered", "cancelled"}
+    if status not in allowed_statuses:
+        raise HTTPException(status_code=400, detail="Invalid status")
+
+    result = await db.orders.update_one(
+        {"id": order_id},
+        {"$set": {"status": status, "updated_at": datetime.now(timezone.utc).isoformat()}},
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return {"success": True}
+
+@api_router.delete("/admin/orders/{order_id}")
+async def delete_order(order_id: str, admin: dict = Depends(get_current_admin)):
+    result = await db.orders.delete_one({"id": order_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return {"success": True}
+
 # ============ Startup & Shutdown ============
 
 @app.on_event("startup")
