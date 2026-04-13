@@ -1,33 +1,9 @@
+import { clientConfig } from '@/config';
 import { motion } from 'framer-motion';
-import { ArrowRight, Star, Flame, Utensils } from 'lucide-react';
+import { ArrowRight, Flame, Star, Utensils } from 'lucide-react';
 
 const HomePage = ({ setCurrentPage }) => {
-  const featuredItems = [
-    {
-      id: 1,
-      name: 'চিকেন পিৎজা',
-      description: 'রসালো চিকেন, গলানো চিজের বন্যা এবং সিক্রেট সস দিয়ে তৈরি',
-      price: '১৫০-২০০',
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.1.0&auto=format&fit=crop&w=600&q=80',
-      badge: 'বেস্ট সেলার',
-    },
-    {
-      id: 2,
-      name: 'চিকেন পাস্তা',
-      description: 'ক্রিমি সস, টেন্ডার চিকেন এবং পারফেক্ট সিজনিং',
-      price: '১০০',
-      image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-4.1.0&auto=format&fit=crop&w=600&q=80',
-      badge: 'জনপ্রিয়',
-    },
-    {
-      id: 3,
-      name: 'ফ্রাইড রাইস + ক্রিসপি চিকেন',
-      description: 'গরম ভাত, ক্রিসপি চিকেন - এক প্লেটে পূর্ণ তৃপ্তি',
-      price: '১৩০',
-      image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.1.0&auto=format&fit=crop&w=600&q=80',
-      badge: 'সেট মেনু',
-    },
-  ];
+  const featuredItems = clientConfig.home.featuredItems;
 
   const fadeUp = {
     initial: { opacity: 0, y: 30 },
@@ -53,7 +29,7 @@ const HomePage = ({ setCurrentPage }) => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.1.0&auto=format&fit=crop&w=2000&q=80"
+            src={clientConfig.hero.backgroundImage}
             alt="Hero Background"
             className="w-full h-full object-cover"
           />
@@ -72,24 +48,32 @@ const HomePage = ({ setCurrentPage }) => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-500/30 rounded-full px-4 py-2 mb-8"
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8"
+                style={{
+                  backgroundColor: 'rgba(255, 159, 28, 0.2)',
+                  border: `1px solid color-mix(in srgb, ${clientConfig.theme.primary} 30%, transparent)`,
+                }}
             >
-              <Flame className="text-orange-400" size={18} />
-              <span className="text-orange-300 text-sm font-medium">মুগদার সেরা ফাস্ট ফুড</span>
+                <Flame style={{ color: clientConfig.theme.primary }} size={18} />
+                <span className="text-sm font-medium" style={{ color: clientConfig.theme.primary }}>
+                  {clientConfig.hero.badge}
+                </span>
             </motion.div>
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
-              ক্ষুধা মেটানোর সাধারণ খাবার নয়,
+                {clientConfig.hero.headlineTop}
               <br />
-              <span className="text-gradient">এক চরম তৃপ্তির বিস্ফোরণ!</span>
+                <span className="text-gradient">{clientConfig.hero.headlineBottom}</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-lg sm:text-xl text-zinc-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-              সারাদিনের ক্লান্তি শেষে এক কামড়েই মন ভালো করার গ্যারান্টি। মুগদার বুকে আপনার প্রিয়
-              <span className="text-orange-400 font-semibold"> 'বার্গার হাউস' </span>
-              দিচ্ছে গরম, রসালো এবং জিভে জল আনা স্বাদের প্রতিশ্রুতি।
+                {clientConfig.hero.subheadlinePrefix}
+                <span className="font-semibold" style={{ color: clientConfig.theme.primary }}>
+                  {' '}{clientConfig.hero.subheadlineBrand}{' '}
+                </span>
+                {clientConfig.hero.subheadlineSuffix}
             </p>
 
             {/* CTA Buttons */}
@@ -102,16 +86,17 @@ const HomePage = ({ setCurrentPage }) => {
                 data-testid="hero-menu-btn"
               >
                 <Utensils size={20} />
-                মেনু দেখুন
+                {clientConfig.hero.menuCta}
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleOrderClick}
-                className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-black font-bold rounded-lg btn-glow transition-all flex items-center gap-2"
+                className="px-8 py-4 text-black font-bold rounded-lg btn-glow transition-all flex items-center gap-2"
+                style={{ backgroundColor: clientConfig.theme.primary }}
                 data-testid="hero-order-btn"
               >
-                গরম গরম অর্ডার করুন
+                {clientConfig.hero.orderCta}
                 <ArrowRight size={20} />
               </motion.button>
             </div>
@@ -139,9 +124,11 @@ const HomePage = ({ setCurrentPage }) => {
       <section className="py-24 sm:py-32 bg-black">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-16">
-            <span className="text-orange-400 font-medium uppercase tracking-wider text-sm">আমাদের স্পেশাল</span>
+              <span className="font-medium uppercase tracking-wider text-sm" style={{ color: clientConfig.theme.primary }}>
+                {clientConfig.home.featuredSectionLabel}
+              </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-4 mb-4">
-              জিভে জল আনা আইটেম
+              {clientConfig.home.featuredSectionTitle}
             </h2>
             <div className="section-divider mx-auto"></div>
           </motion.div>
@@ -167,7 +154,7 @@ const HomePage = ({ setCurrentPage }) => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   {/* Badge */}
-                  <span className="absolute top-4 left-4 bg-orange-500 text-black text-xs font-bold px-3 py-1 rounded-full">
+                      <span className="absolute top-4 left-4 text-black text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: clientConfig.theme.primary }}>
                     {item.badge}
                   </span>
                 </div>
@@ -187,10 +174,11 @@ const HomePage = ({ setCurrentPage }) => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleOrderClick}
-                      className="text-orange-400 font-medium text-sm hover:text-orange-300 flex items-center gap-1"
+                      className="font-medium text-sm hover:text-orange-300 flex items-center gap-1"
+                      style={{ color: clientConfig.theme.primary }}
                       data-testid={`order-item-${item.id}`}
                     >
-                      অর্ডার করুন
+                      {clientConfig.home.orderButton}
                       <ArrowRight size={16} />
                     </motion.button>
                   </div>
@@ -205,10 +193,11 @@ const HomePage = ({ setCurrentPage }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleMenuClick}
-              className="px-8 py-4 border-2 border-orange-500 text-orange-400 font-bold rounded-lg hover:bg-orange-500 hover:text-black transition-all"
+              className="px-8 py-4 border-2 font-bold rounded-lg transition-all"
+              style={{ borderColor: clientConfig.theme.primary, color: clientConfig.theme.primary }}
               data-testid="view-all-menu-btn"
             >
-              সম্পূর্ণ মেনু দেখুন
+              {clientConfig.home.viewAllButton}
             </motion.button>
           </motion.div>
         </div>
@@ -218,31 +207,17 @@ const HomePage = ({ setCurrentPage }) => {
       <section className="py-24 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-16">
-            <span className="text-orange-400 font-medium uppercase tracking-wider text-sm">কেন বার্গার হাউস?</span>
+            <span className="font-medium uppercase tracking-wider text-sm" style={{ color: clientConfig.theme.primary }}>
+              {clientConfig.home.whyChooseSectionLabel}
+            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-4 mb-4">
-              আমাদের বিশেষত্ব
+              {clientConfig.home.whyChooseSectionTitle}
             </h2>
             <div className="section-divider mx-auto"></div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: '🔥',
-                title: 'গরম ও তাজা',
-                description: 'প্রতিটি অর্ডার তাজা উপকরণ দিয়ে তৈরি এবং গরম গরম পরিবেশন করা হয়',
-              },
-              {
-                icon: '⚡',
-                title: 'দ্রুত ডেলিভারি',
-                description: 'মুগদা এলাকায় সবচেয়ে দ্রুত ডেলিভারি সার্ভিস',
-              },
-              {
-                icon: '💯',
-                title: 'মানের নিশ্চয়তা',
-                description: 'সেরা মানের উপকরণ এবং হাইজিনিক পরিবেশে তৈরি',
-              },
-            ].map((feature, index) => (
+            {clientConfig.home.features.map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -266,10 +241,10 @@ const HomePage = ({ setCurrentPage }) => {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div {...fadeUp}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
-              ক্ষুধা লাগছে? আর দেরি কেন!
+              {clientConfig.home.ctaTitle}
             </h2>
             <p className="text-black/70 text-lg mb-8">
-              এখনই অর্ডার করুন এবং মুগদার সেরা স্বাদ উপভোগ করুন
+              {clientConfig.home.ctaText}
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -278,7 +253,7 @@ const HomePage = ({ setCurrentPage }) => {
               className="px-10 py-4 bg-black text-white font-bold rounded-lg hover:bg-zinc-900 transition-all"
               data-testid="cta-order-btn"
             >
-              এখনই অর্ডার করুন
+              {clientConfig.home.ctaButton}
             </motion.button>
           </motion.div>
         </div>
