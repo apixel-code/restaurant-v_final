@@ -29,7 +29,7 @@ const HomePage = ({ setCurrentPage }) => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.1.0&auto=format&fit=crop&w=2000&q=80"
+            src={clientConfig.hero.backgroundImage}
             alt="Hero Background"
             className="w-full h-full object-cover"
           />
