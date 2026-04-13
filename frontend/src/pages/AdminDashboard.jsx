@@ -87,14 +87,14 @@ const AdminDashboard = () => {
         {},
         { headers: getAuthHeaders() }
       );
-      toast.success(clientConfig.admin.statusUpdated);
+      toast.success('স্ট্যাটাস আপডেট হয়েছে');
       fetchOrders();
     } catch (error) {
       if (error.response?.status === 401) {
         await checkAuth();
         return;
       }
-      toast.error(clientConfig.admin.statusUpdateFailed);
+      toast.error('স্ট্যাটাস আপডেট ব্যর্থ');
     }
   };
 
@@ -136,12 +136,13 @@ const AdminDashboard = () => {
         return;
       }
       toast.error(deleteTarget.kind === 'order' ? clientConfig.admin.orderDeleteFailure : clientConfig.admin.menuDeleteFailure);
+      toast.error('ডিলিট ব্যর্থ হয়েছে');
     }
   };
 
   const handleLogout = async () => {
     await logout();
-    toast.success(clientConfig.admin.logoutSuccess);
+    toast.success('লগআউট সফল');
   };
 
   const getStatusBadge = (status) => {
@@ -152,7 +153,13 @@ const AdminDashboard = () => {
       delivered: 'bg-green-500/20 text-green-400 border-green-500/30',
       cancelled: 'bg-red-500/20 text-red-400 border-red-500/30',
     };
-    const labels = clientConfig.admin.statusLabels;
+    const labels = {
+      pending: 'পেন্ডিং',
+      confirmed: 'কনফার্মড',
+      preparing: 'তৈরি হচ্ছে',
+      delivered: 'ডেলিভার্ড',
+      cancelled: 'বাতিল',
+    };
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium border ${styles[status] || styles.pending}`}>
         {labels[status] || status}
@@ -161,8 +168,8 @@ const AdminDashboard = () => {
   };
 
   const navItems = [
-    { id: 'orders', label: clientConfig.admin.ordersTabLabel, icon: ShoppingBag },
-    { id: 'menu', label: clientConfig.admin.menuTabLabel, icon: UtensilsCrossed },
+    { id: 'orders', label: 'অর্ডার', icon: ShoppingBag },
+    { id: 'menu', label: 'মেনু', icon: UtensilsCrossed },
   ];
 
   return (
@@ -178,13 +185,10 @@ const AdminDashboard = () => {
             <Menu size={24} />
           </button>
           <div className="flex items-center gap-2">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: `linear-gradient(135deg, ${clientConfig.theme.primary} 0%, ${clientConfig.theme.accent} 100%)` }}
-            >
-              <span className="text-black font-bold">{clientConfig.brand.initial}</span>
+            <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-lg flex items-center justify-center">
+              <span className="text-black font-bold">B</span>
             </div>
-            <span className="font-bold text-white">{clientConfig.admin.dashboardSubtitle}</span>
+            <span className="font-bold text-white">অ্যাডমিন</span>
           </div>
         </div>
         <button
@@ -217,15 +221,12 @@ const AdminDashboard = () => {
         {/* Logo */}
         <div className="p-5 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: `linear-gradient(135deg, ${clientConfig.theme.primary} 0%, ${clientConfig.theme.accent} 100%)` }}
-            >
-              <span className="text-black font-bold text-xl">{clientConfig.brand.initial}</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-xl flex items-center justify-center">
+              <span className="text-black font-bold text-xl">B</span>
             </div>
             <div>
-              <h1 className="font-bold text-white">{clientConfig.admin.dashboardBrandLabel}</h1>
-              <p className="text-xs text-zinc-500">{clientConfig.admin.dashboardSubtitle}</p>
+              <h1 className="font-bold text-white">বার্গার হাউস</h1>
+              <p className="text-xs text-zinc-500">অ্যাডমিন প্যানেল</p>
             </div>
           </div>
         </div>
@@ -240,10 +241,9 @@ const AdminDashboard = () => {
                 setSidebarOpen(false);
               }}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === item.id
-                  ? 'text-black'
+                  ? 'bg-orange-500 text-black'
                   : 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
                 }`}
-              style={activeTab === item.id ? { backgroundColor: clientConfig.theme.primary } : undefined}
               data-testid={`nav-${item.id}`}
             >
               <item.icon size={20} />
@@ -271,7 +271,7 @@ const AdminDashboard = () => {
           {/* Header */}
           <div className="hidden lg:flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold text-white">
-              {activeTab === 'orders' ? clientConfig.admin.ordersHeader : clientConfig.admin.menuHeader}
+              {activeTab === 'orders' ? 'অর্ডার লিস্ট' : 'মেনু ম্যানেজমেন্ট'}
             </h1>
             {activeTab === 'menu' && (
               <motion.button
@@ -281,12 +281,11 @@ const AdminDashboard = () => {
                   setEditingItem(null);
                   setShowMenuModal(true);
                 }}
-                className="flex items-center gap-2 text-black font-bold px-4 py-2 rounded-lg"
-                style={{ backgroundColor: clientConfig.theme.primary }}
+                className="flex items-center gap-2 bg-orange-500 text-black font-bold px-4 py-2 rounded-lg"
                 data-testid="add-menu-btn"
               >
                 <Plus size={20} />
-                {clientConfig.admin.addItemButton}
+                নতুন আইটেম
               </motion.button>
             )}
           </div>
@@ -294,7 +293,7 @@ const AdminDashboard = () => {
           {/* Mobile Tab Header */}
           <div className="lg:hidden flex items-center justify-between mb-4">
             <h1 className="text-xl font-bold text-white">
-              {activeTab === 'orders' ? clientConfig.admin.ordersHeader : clientConfig.admin.menuHeader}
+              {activeTab === 'orders' ? 'অর্ডার লিস্ট' : 'মেনু ম্যানেজমেন্ট'}
             </h1>
             {activeTab === 'menu' && (
               <button
@@ -302,12 +301,11 @@ const AdminDashboard = () => {
                   setEditingItem(null);
                   setShowMenuModal(true);
                 }}
-                className="flex items-center gap-1 text-black font-bold px-3 py-2 rounded-lg text-sm"
-                style={{ backgroundColor: clientConfig.theme.primary }}
+                className="flex items-center gap-1 bg-orange-500 text-black font-bold px-3 py-2 rounded-lg text-sm"
                 data-testid="add-menu-btn-mobile"
               >
                 <Plus size={18} />
-                {clientConfig.admin.addItemMobileButton}
+                যোগ করুন
               </button>
             )}
           </div>
@@ -317,13 +315,13 @@ const AdminDashboard = () => {
             <div className="space-y-4">
               {loading ? (
                 <div className="text-center py-12">
-                  <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin mx-auto" style={{ borderColor: clientConfig.theme.primary, borderTopColor: 'transparent' }}></div>
-                  <p className="text-zinc-400 mt-3">{clientConfig.admin.loadingText}</p>
+                  <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                  <p className="text-zinc-400 mt-3">লোড হচ্ছে...</p>
                 </div>
               ) : orders.length === 0 ? (
                 <div className="text-center py-12 bg-zinc-900 rounded-xl border border-white/5">
                   <ShoppingBag className="mx-auto text-zinc-600 mb-3" size={48} />
-                  <p className="text-zinc-400">{clientConfig.admin.emptyOrdersText}</p>
+                  <p className="text-zinc-400">কোনো অর্ডার নেই</p>
                 </div>
               ) : (
                 orders.map((order) => (
@@ -342,7 +340,7 @@ const AdminDashboard = () => {
                         </div>
                         <p className="text-zinc-400 text-sm mb-1">📞 {order.phone}</p>
                         <p className="text-zinc-400 text-sm mb-1">📍 {order.address}</p>
-                        <p className="text-sm font-medium" style={{ color: clientConfig.theme.primary }}>🍕 {order.item}</p>
+                        <p className="text-orange-400 text-sm font-medium">🍕 {order.item}</p>
                         <p className="text-zinc-500 text-xs mt-2">
                           {new Date(order.created_at).toLocaleString('bn-BD')}
                         </p>
@@ -355,14 +353,14 @@ const AdminDashboard = () => {
                               className="flex items-center gap-1 bg-blue-500/20 text-blue-400 px-3 py-2 rounded-lg text-sm hover:bg-blue-500/30"
                               data-testid={`confirm-${order.id}`}
                             >
-                              <Check size={16} /> {clientConfig.admin.orderActions.confirm}
+                              <Check size={16} /> কনফার্ম
                             </button>
                             <button
                               onClick={() => updateOrderStatus(order.id, 'cancelled')}
                               className="flex items-center gap-1 bg-red-500/20 text-red-400 px-3 py-2 rounded-lg text-sm hover:bg-red-500/30"
                               data-testid={`cancel-${order.id}`}
                             >
-                              <XCircle size={16} /> {clientConfig.admin.orderActions.cancel}
+                              <XCircle size={16} /> বাতিল
                             </button>
                           </>
                         )}
@@ -372,7 +370,7 @@ const AdminDashboard = () => {
                             className="flex items-center gap-1 bg-purple-500/20 text-purple-400 px-3 py-2 rounded-lg text-sm hover:bg-purple-500/30"
                             data-testid={`preparing-${order.id}`}
                           >
-                            <ChefHat size={16} /> {clientConfig.admin.orderActions.preparing}
+                            <ChefHat size={16} /> তৈরি শুরু
                           </button>
                         )}
                         {order.status === 'preparing' && (
@@ -381,7 +379,7 @@ const AdminDashboard = () => {
                             className="flex items-center gap-1 bg-green-500/20 text-green-400 px-3 py-2 rounded-lg text-sm hover:bg-green-500/30"
                             data-testid={`deliver-${order.id}`}
                           >
-                            <Truck size={16} /> {clientConfig.admin.orderActions.delivered}
+                            <Truck size={16} /> ডেলিভার্ড
                           </button>
                         )}
                         <button
@@ -389,7 +387,7 @@ const AdminDashboard = () => {
                           className="flex items-center gap-1 bg-red-500/10 text-red-400 px-3 py-2 rounded-lg text-sm hover:bg-red-500/20 border border-red-500/20"
                           data-testid={`delete-order-${order.id}`}
                         >
-                          <Trash2 size={16} /> {clientConfig.admin.orderActions.delete}
+                          <Trash2 size={16} /> ডিলিট
                         </button>
                       </div>
                     </div>
@@ -404,13 +402,13 @@ const AdminDashboard = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {loading ? (
                 <div className="col-span-full text-center py-12">
-                  <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin mx-auto" style={{ borderColor: clientConfig.theme.primary, borderTopColor: 'transparent' }}></div>
-                  <p className="text-zinc-400 mt-3">{clientConfig.admin.loadingText}</p>
+                  <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                  <p className="text-zinc-400 mt-3">লোড হচ্ছে...</p>
                 </div>
               ) : menuItems.length === 0 ? (
                 <div className="col-span-full text-center py-12 bg-zinc-900 rounded-xl border border-white/5">
                   <UtensilsCrossed className="mx-auto text-zinc-600 mb-3" size={48} />
-                  <p className="text-zinc-400">{clientConfig.admin.emptyMenuText}</p>
+                  <p className="text-zinc-400">কোনো মেনু আইটেম নেই</p>
                 </div>
               ) : (
                 menuItems.map((item) => (
@@ -432,10 +430,10 @@ const AdminDashboard = () => {
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <h3 className="font-bold text-white text-sm">{item.name}</h3>
-                          <p className="text-sm font-medium" style={{ color: clientConfig.theme.primary }}>৳ {item.price}/-</p>
+                          <p className="text-orange-400 text-sm font-medium">৳ {item.price}/-</p>
                         </div>
                         <span className="text-xs bg-zinc-800 text-zinc-400 px-2 py-1 rounded">
-                          {item.category === 'pizza' ? clientConfig.admin.menuModal.categoryOptions.pizza : item.category === 'pasta' ? clientConfig.admin.menuModal.categoryOptions.pasta : clientConfig.admin.menuModal.categoryOptions.setmenu}
+                          {item.category === 'pizza' ? 'পিৎজা' : item.category === 'pasta' ? 'পাস্তা' : 'সেট মেনু'}
                         </span>
                       </div>
                       <p className="text-zinc-500 text-xs mt-2 line-clamp-2">{item.description}</p>
@@ -568,7 +566,7 @@ const MenuModal = ({ isOpen, onClose, editingItem, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.price) {
-      toast.error(clientConfig.admin.menuModal.validationError);
+      toast.error('নাম এবং দাম দিন');
       return;
     }
 
@@ -580,19 +578,19 @@ const MenuModal = ({ isOpen, onClose, editingItem, onSuccess }) => {
           formData,
           { headers: getAuthHeaders() }
         );
-        toast.success(clientConfig.admin.menuModal.successEdit);
+        toast.success('আইটেম আপডেট হয়েছে');
       } else {
         await axios.post(
           `${API_URL}/api/admin/menu`,
           formData,
           { headers: getAuthHeaders() }
         );
-        toast.success(clientConfig.admin.menuModal.successNew);
+        toast.success('নতুন আইটেম যোগ হয়েছে');
       }
       onSuccess();
       onClose();
     } catch (error) {
-      toast.error(clientConfig.admin.menuModal.error);
+      toast.error('সমস্যা হয়েছে');
     }
     setLoading(false);
   };
@@ -609,7 +607,7 @@ const MenuModal = ({ isOpen, onClose, editingItem, onSuccess }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-white/10 sticky top-0 bg-zinc-900">
           <h2 className="text-lg font-bold text-white">
-            {editingItem ? clientConfig.admin.menuModal.editTitle : clientConfig.admin.menuModal.addTitle}
+            {editingItem ? 'আইটেম এডিট করুন' : 'নতুন আইটেম যোগ করুন'}
           </h2>
           <button onClick={onClose} className="text-zinc-400 hover:text-white">
             <X size={24} />
@@ -619,76 +617,76 @@ const MenuModal = ({ isOpen, onClose, editingItem, onSuccess }) => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <div>
-            <label className="block text-zinc-400 text-sm mb-1">{clientConfig.admin.menuModal.nameLabel}</label>
+            <label className="block text-zinc-400 text-sm mb-1">নাম *</label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-orange-500"
-              placeholder={clientConfig.admin.menuModal.namePlaceholder}
+              placeholder="চিকেন পিৎজা"
               data-testid="menu-name-input"
             />
           </div>
 
           <div>
-            <label className="block text-zinc-400 text-sm mb-1">{clientConfig.admin.menuModal.categoryLabel}</label>
+            <label className="block text-zinc-400 text-sm mb-1">ক্যাটেগরি</label>
             <select
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-orange-500"
               data-testid="menu-category-select"
             >
-              <option value="pizza">{clientConfig.admin.menuModal.categoryOptions.pizza}</option>
-              <option value="pasta">{clientConfig.admin.menuModal.categoryOptions.pasta}</option>
-              <option value="setmenu">{clientConfig.admin.menuModal.categoryOptions.setmenu}</option>
+              <option value="pizza">পিৎজা</option>
+              <option value="pasta">চাউমিন/পাস্তা</option>
+              <option value="setmenu">সেট মেনু</option>
             </select>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-zinc-400 text-sm mb-1">{clientConfig.admin.menuModal.priceLabel}</label>
+              <label className="block text-zinc-400 text-sm mb-1">দাম *</label>
               <input
                 type="text"
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-orange-500"
-                placeholder={clientConfig.admin.menuModal.pricePlaceholder}
+                placeholder="১৫০"
                 data-testid="menu-price-input"
               />
             </div>
             <div>
-              <label className="block text-zinc-400 text-sm mb-1">{clientConfig.admin.menuModal.sizeLabel}</label>
+              <label className="block text-zinc-400 text-sm mb-1">সাইজ</label>
               <input
                 type="text"
                 value={formData.size}
                 onChange={(e) => setFormData({ ...formData, size: e.target.value })}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-orange-500"
-                placeholder={clientConfig.admin.menuModal.sizePlaceholder}
+                placeholder='৭" - ৯"'
                 data-testid="menu-size-input"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-zinc-400 text-sm mb-1">{clientConfig.admin.menuModal.descriptionLabel}</label>
+            <label className="block text-zinc-400 text-sm mb-1">বর্ণনা</label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-orange-500 resize-none"
               rows={2}
-              placeholder={clientConfig.admin.menuModal.descriptionPlaceholder}
+              placeholder="রসালো চিকেন, চিজ..."
               data-testid="menu-description-input"
             />
           </div>
 
           <div>
-            <label className="block text-zinc-400 text-sm mb-1">{clientConfig.admin.menuModal.imageLabel}</label>
+            <label className="block text-zinc-400 text-sm mb-1">ছবির URL</label>
             <input
               type="text"
               value={formData.image}
               onChange={(e) => setFormData({ ...formData, image: e.target.value })}
               className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-orange-500"
-              placeholder={clientConfig.admin.menuModal.imagePlaceholder}
+              placeholder="https://..."
               data-testid="menu-image-input"
             />
           </div>
@@ -702,7 +700,7 @@ const MenuModal = ({ isOpen, onClose, editingItem, onSuccess }) => {
               className="w-4 h-4 accent-orange-500"
               data-testid="menu-popular-checkbox"
             />
-            <label htmlFor="popular" className="text-zinc-300 text-sm">{clientConfig.admin.menuModal.popularLabel}</label>
+            <label htmlFor="popular" className="text-zinc-300 text-sm">জনপ্রিয় আইটেম</label>
           </div>
 
           <button
@@ -710,12 +708,11 @@ const MenuModal = ({ isOpen, onClose, editingItem, onSuccess }) => {
             disabled={loading}
             className={`w-full py-3 rounded-xl font-bold transition-all ${loading
                 ? 'bg-zinc-700 text-zinc-400'
-                : 'text-black'
+                : 'bg-orange-500 text-black hover:bg-orange-600'
               }`}
-            style={loading ? undefined : { backgroundColor: clientConfig.theme.primary }}
             data-testid="menu-submit-btn"
           >
-            {loading ? clientConfig.admin.menuModal.submitting : editingItem ? clientConfig.admin.menuModal.submitEdit : clientConfig.admin.menuModal.submitNew}
+            {loading ? 'সেভ হচ্ছে...' : editingItem ? 'আপডেট করুন' : 'যোগ করুন'}
           </button>
         </form>
       </motion.div>

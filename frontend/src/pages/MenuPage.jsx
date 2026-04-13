@@ -7,6 +7,15 @@ const MenuPage = ({ setCurrentPage }) => {
   const [activeCategory, setActiveCategory] = useState('all');
   const categories = clientConfig.menu.categories;
   const menuItems = clientConfig.menu.items;
+  const contact = clientConfig.contact ?? {};
+  const primaryPhone = contact.primaryPhone ?? {
+    href: 'tel:+8801917503580',
+    display: '+৮৮০ ১৯১৭-৫০৩৫৮০',
+  };
+  const secondaryPhone = contact.secondaryPhone ?? {
+    href: 'tel:+8801950496683',
+    display: '+৮৮০ ১৯৫০-৪৯৬৬৮৩',
+  };
 
   const filteredItems = activeCategory === 'all' 
     ? menuItems 
@@ -116,9 +125,9 @@ const MenuPage = ({ setCurrentPage }) => {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div {...fadeUp}>
             <p className="text-zinc-400 text-sm">
-              {clientConfig.menu.specialNotePrefix} <a href={clientConfig.contact.primaryPhone.href} className="font-medium" style={{ color: clientConfig.theme.primary }}>{clientConfig.contact.primaryPhone.display}</a>
+              {clientConfig.menu.specialNotePrefix} <a href={primaryPhone.href} className="font-medium" style={{ color: clientConfig.theme.primary }}>{primaryPhone.display}</a>
               {' '} অথবা {' '}
-              <a href={clientConfig.contact.secondaryPhone.href} className="font-medium" style={{ color: clientConfig.theme.primary }}>{clientConfig.contact.secondaryPhone.display}</a>
+              <a href={secondaryPhone.href} className="font-medium" style={{ color: clientConfig.theme.primary }}>{secondaryPhone.display}</a>
             </p>
             <p className="text-zinc-500 text-xs mt-2">
               {clientConfig.menu.priceNote}
