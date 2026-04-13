@@ -1,10 +1,15 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Phone } from 'lucide-react';
+import { clientConfig } from '@/config';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, Phone, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const Navbar = ({ currentPage, setCurrentPage }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const primaryPhone = clientConfig.contact?.primaryPhone ?? {
+    href: 'tel:+8801917503580',
+    display: '+৮৮০ ১৯১৭-৫০৩৫৮০',
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,13 +18,6 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navLinks = [
-    { id: 'home', label: 'হোম' },
-    { id: 'menu', label: 'মেনু' },
-    { id: 'blog', label: 'ব্লগ' },
-    { id: 'contact', label: 'যোগাযোগ' },
-  ];
 
   const handleNavClick = (pageId) => {
     setCurrentPage(pageId);
@@ -46,24 +44,30 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
             onClick={() => handleNavClick('home')}
             data-testid="logo"
           >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-black font-bold text-lg sm:text-xl">B</span>
+            <div
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{
+                background: `linear-gradient(135deg, ${clientConfig.theme.primary} 0%, ${clientConfig.theme.accent} 100%)`,
+              }}
+            >
+              <span className="text-black font-bold text-lg sm:text-xl">{clientConfig.brand.initial}</span>
             </div>
             <div>
-              <h1 className="text-sm sm:text-lg font-bold text-white leading-tight">বার্গার হাউস</h1>
-              <p className="text-[10px] sm:text-xs text-orange-400 -mt-0.5 sm:-mt-1">রেস্টুরেন্ট</p>
+              <h1 className="text-sm sm:text-lg font-bold text-white leading-tight">{clientConfig.brand.name}</h1>
+              <p className="text-[10px] sm:text-xs -mt-0.5 sm:-mt-1" style={{ color: clientConfig.theme.primary }}>
+                {clientConfig.brand.descriptor}
+              </p>
             </div>
           </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {clientConfig.navigation.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`nav-link text-sm font-medium transition-colors ${
-                  currentPage === link.id ? 'text-orange-400 active' : 'text-zinc-300 hover:text-white'
-                }`}
+                className={`nav-link text-sm font-medium transition-colors ${currentPage === link.id ? 'active' : 'text-zinc-300 hover:text-white'}`}
+                style={currentPage === link.id ? { color: clientConfig.theme.primary } : undefined}
                 data-testid={`nav-${link.id}`}
               >
                 {link.label}
@@ -74,21 +78,22 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="tel:+8801917503580"
+              href={primaryPhone.href}
               className="flex items-center gap-2 text-zinc-400 hover:text-orange-400 transition-colors"
               data-testid="call-btn"
             >
               <Phone size={18} />
-              <span className="text-sm">০১৯১৭-৫০৩৫৮০</span>
+              <span className="text-sm">{primaryPhone.display}</span>
             </a>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNavClick('contact')}
-              className="bg-orange-500 hover:bg-orange-600 text-black font-bold px-5 py-2.5 rounded-lg btn-glow transition-all"
+              className="text-black font-bold px-5 py-2.5 rounded-lg btn-glow transition-all"
+              style={{ backgroundColor: clientConfig.theme.primary }}
               data-testid="order-btn-nav"
             >
-              অর্ডার করুন
+              {clientConfig.hero.orderCta}
             </motion.button>
           </div>
 
@@ -120,16 +125,15 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
               <X size={28} />
             </button>
             <div className="flex flex-col items-center gap-8">
-              {navLinks.map((link, index) => (
+              {clientConfig.navigation.map((link, index) => (
                 <motion.button
                   key={link.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => handleNavClick(link.id)}
-                  className={`text-2xl font-bold ${
-                    currentPage === link.id ? 'text-orange-400' : 'text-white'
-                  }`}
+                  className="text-2xl font-bold"
+                  style={currentPage === link.id ? { color: clientConfig.theme.primary } : { color: '#fff' }}
                   data-testid={`mobile-nav-${link.id}`}
                 >
                   {link.label}
@@ -140,10 +144,11 @@ const Navbar = ({ currentPage, setCurrentPage }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 onClick={() => handleNavClick('contact')}
-                className="bg-orange-500 text-black font-bold px-8 py-3 rounded-lg mt-4"
+                className="text-black font-bold px-8 py-3 rounded-lg mt-4"
+                style={{ backgroundColor: clientConfig.theme.primary }}
                 data-testid="mobile-order-btn"
               >
-                অর্ডার করুন
+                {clientConfig.hero.orderCta}
               </motion.button>
             </div>
           </motion.div>

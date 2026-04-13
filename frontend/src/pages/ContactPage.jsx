@@ -1,3 +1,4 @@
+import { clientConfig } from '@/config';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Clock, MapPin, Phone, Send, ShoppingBag, User } from 'lucide-react';
@@ -24,9 +25,9 @@ const ContactPage = ({ setCurrentPage }) => {
     e.preventDefault();
     
     if (!formData.name || !formData.phone || !formData.address || !formData.item) {
-      toast.error('অনুগ্রহ করে সব ফিল্ড পূরণ করুন', {
+      toast.error(clientConfig.contact.validationMessage, {
         style: {
-          background: '#171717',
+          background: clientConfig.theme.surfaceAlt,
           color: '#fff',
           border: '1px solid rgba(239, 68, 68, 0.3)',
         },
@@ -40,12 +41,12 @@ const ContactPage = ({ setCurrentPage }) => {
       // Submit order to backend
       await axios.post(`${API_URL}/api/orders`, formData);
       
-      toast.success('অসাধারণ সিদ্ধান্ত! আপনার গরম ও সুস্বাদু খাবার তৈরি হচ্ছে।', {
+      toast.success(clientConfig.contact.successMessage, {
         duration: 4000,
         style: {
-          background: '#171717',
+          background: clientConfig.theme.surfaceAlt,
           color: '#fff',
-          border: '1px solid rgba(255, 159, 28, 0.3)',
+          border: `1px solid ${clientConfig.theme.borderDefault}`,
         },
         icon: '🔥',
       });
@@ -58,11 +59,11 @@ const ContactPage = ({ setCurrentPage }) => {
       setTimeout(() => {
         setCurrentPage('home');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 2000);
+      }, clientConfig.contact.redirectDelayMs);
     } catch (error) {
-      toast.error('অর্ডার সাবমিট করতে সমস্যা হয়েছে', {
+      toast.error(clientConfig.contact.errorMessage, {
         style: {
-          background: '#171717',
+          background: clientConfig.theme.surfaceAlt,
           color: '#fff',
           border: '1px solid rgba(239, 68, 68, 0.3)',
         },
@@ -78,24 +79,7 @@ const ContactPage = ({ setCurrentPage }) => {
     transition: { duration: 0.5, ease: 'easeOut' },
   };
 
-  const contactInfo = [
-    {
-      icon: <MapPin className="text-orange-400" size={24} />,
-      title: 'ঠিকানা',
-      details: ['৭৯/৮০, দক্ষিণ মুগদা', 'গার্মেন্টস গলি, দাদা ভিলা এপার্টমেন্ট', 'মুগদা, ঢাকা'],
-    },
-    {
-      icon: <Phone className="text-orange-400" size={24} />,
-      title: 'ফোন নম্বর',
-      details: ['+৮৮০ ১৯১৭-৫০৩৫৮০', '+৮৮০ ১৯৫০-৪৯৬৬৮৩'],
-      links: ['tel:+8801917503580', 'tel:+8801950496683'],
-    },
-    {
-      icon: <Clock className="text-orange-400" size={24} />,
-      title: 'খোলা থাকে',
-      details: ['সকাল ১০:০০ - রাত ১১:০০', 'প্রতিদিন খোলা'],
-    },
-  ];
+  const contactInfo = clientConfig.contact.infoCards;
 
   return (
     <div className="min-h-screen bg-black pt-24 pb-16" data-testid="contact-page">
@@ -103,12 +87,14 @@ const ContactPage = ({ setCurrentPage }) => {
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-16">
-            <span className="text-orange-400 font-medium uppercase tracking-wider text-sm">যোগাযোগ করুন</span>
+            <span className="font-medium uppercase tracking-wider text-sm" style={{ color: clientConfig.theme.primary }}>
+              {clientConfig.contact.headerLabel}
+            </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-4 mb-4">
-              অর্ডার <span className="text-gradient">করুন</span>
+              {clientConfig.contact.title} <span className="text-gradient">{clientConfig.contact.titleAccent}</span>
             </h1>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
-              গরম গরম সুস্বাদু খাবার এখনই অর্ডার করুন। দ্রুত ডেলিভারি নিশ্চিত।
+              {clientConfig.contact.subtitle}
             </p>
             <div className="section-divider mx-auto mt-6"></div>
           </motion.div>
@@ -117,12 +103,14 @@ const ContactPage = ({ setCurrentPage }) => {
             {/* Contact Info */}
             <motion.div {...fadeUp}>
               <div className="bg-zinc-900 rounded-2xl p-8 border border-white/5">
-                <h2 className="text-2xl font-bold text-white mb-8">যোগাযোগের তথ্য</h2>
+                <h2 className="text-2xl font-bold text-white mb-8">{clientConfig.contact.infoTitle}</h2>
                 <div className="space-y-8">
                   {contactInfo.map((info, index) => (
                     <div key={index} className="flex gap-4">
                       <div className="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center flex-shrink-0">
-                        {info.icon}
+                        {index === 0 && <MapPin style={{ color: clientConfig.theme.primary }} size={24} />}
+                        {index === 1 && <Phone style={{ color: clientConfig.theme.primary }} size={24} />}
+                        {index === 2 && <Clock style={{ color: clientConfig.theme.primary }} size={24} />}
                       </div>
                       <div>
                         <h3 className="text-white font-semibold mb-2">{info.title}</h3>
@@ -146,30 +134,31 @@ const ContactPage = ({ setCurrentPage }) => {
 
                 {/* WhatsApp CTA */}
                 <a
-                  href="https://wa.me/8801917503580"
+                  href={clientConfig.whatsapp.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-all"
+                  className="mt-8 w-full text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-all"
+                  style={{ backgroundColor: clientConfig.theme.success }}
                   data-testid="whatsapp-order-btn"
                 >
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
-                  WhatsApp এ অর্ডার করুন
+                  {clientConfig.contact.whatsappCta}
                 </a>
               </div>
 
               {/* Map Placeholder */}
               <div className="mt-6 bg-zinc-900 rounded-2xl overflow-hidden border border-white/5 h-64">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.0!2d90.4!3d23.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ1JzAwLjAiTiA5MMKwMjQnMDAuMCJF!5e0!3m2!1sen!2sbd!4v1234567890"
+                  src={clientConfig.contact.mapEmbedUrl}
                   width="100%"
                   height="100%"
                   style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Burger House Location"
+                  title={clientConfig.contact.mapTitle}
                 ></iframe>
               </div>
             </motion.div>
@@ -177,14 +166,14 @@ const ContactPage = ({ setCurrentPage }) => {
             {/* Order Form */}
             <motion.div {...fadeUp}>
               <div className="bg-zinc-900 rounded-2xl p-8 border border-white/5">
-                <h2 className="text-2xl font-bold text-white mb-2">অর্ডার ফর্ম</h2>
-                <p className="text-zinc-400 text-sm mb-8">নিচের ফর্ম পূরণ করে অর্ডার করুন</p>
+                <h2 className="text-2xl font-bold text-white mb-2">{clientConfig.contact.orderFormTitle}</h2>
+                <p className="text-zinc-400 text-sm mb-8">{clientConfig.contact.orderFormSubtitle}</p>
 
                 <form onSubmit={handleSubmit} className="space-y-6" data-testid="order-form">
                   {/* Name */}
                   <div>
                     <label className="block text-white text-sm font-medium mb-2">
-                      আপনার নাম
+                      {clientConfig.contact.formLabels.name}
                     </label>
                     <div className="relative">
                       <User className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
@@ -193,7 +182,7 @@ const ContactPage = ({ setCurrentPage }) => {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        placeholder="নাম লিখুন"
+                        placeholder={clientConfig.contact.formPlaceholders.name}
                         className="form-input with-icon"
                         data-testid="input-name"
                       />
@@ -203,7 +192,7 @@ const ContactPage = ({ setCurrentPage }) => {
                   {/* Phone */}
                   <div>
                     <label className="block text-white text-sm font-medium mb-2">
-                      ফোন নম্বর
+                      {clientConfig.contact.formLabels.phone}
                     </label>
                     <div className="relative">
                       <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
@@ -212,7 +201,7 @@ const ContactPage = ({ setCurrentPage }) => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="01XXXXXXXXX"
+                        placeholder={clientConfig.contact.formPlaceholders.phone}
                         className="form-input with-icon"
                         data-testid="input-phone"
                       />
@@ -222,7 +211,7 @@ const ContactPage = ({ setCurrentPage }) => {
                   {/* Address */}
                   <div>
                     <label className="block text-white text-sm font-medium mb-2">
-                      ডেলিভারি ঠিকানা
+                      {clientConfig.contact.formLabels.address}
                     </label>
                     <div className="relative">
                       <MapPin className="absolute left-4 top-4 text-zinc-500" size={18} />
@@ -230,7 +219,7 @@ const ContactPage = ({ setCurrentPage }) => {
                         name="address"
                         value={formData.address}
                         onChange={handleInputChange}
-                        placeholder="সম্পূর্ণ ঠিকানা লিখুন"
+                        placeholder={clientConfig.contact.formPlaceholders.address}
                         rows={3}
                         className="form-input with-icon-textarea resize-none"
                         data-testid="input-address"
@@ -241,7 +230,7 @@ const ContactPage = ({ setCurrentPage }) => {
                   {/* Item */}
                   <div>
                     <label className="block text-white text-sm font-medium mb-2">
-                      অর্ডার আইটেম
+                      {clientConfig.contact.formLabels.item}
                     </label>
                     <div className="relative">
                       <ShoppingBag className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
@@ -250,7 +239,7 @@ const ContactPage = ({ setCurrentPage }) => {
                         name="item"
                         value={formData.item}
                         onChange={handleInputChange}
-                        placeholder="যেমন: চিকেন পিৎজা ২টি, চিকেন পাস্তা ১টি"
+                        placeholder={clientConfig.contact.formPlaceholders.item}
                         className="form-input with-icon"
                         data-testid="input-item"
                       />
@@ -273,19 +262,19 @@ const ContactPage = ({ setCurrentPage }) => {
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 border-2 border-zinc-400 border-t-transparent rounded-full animate-spin"></div>
-                        প্রসেসিং...
+                        {clientConfig.contact.processingText}
                       </>
                     ) : (
                       <>
                         <Send size={20} />
-                        অর্ডার কনফার্ম করুন
+                        {clientConfig.contact.confirmText}
                       </>
                     )}
                   </motion.button>
                 </form>
 
                 <p className="text-zinc-500 text-xs text-center mt-6">
-                  অর্ডার কনফার্ম করলে আমরা শীঘ্রই আপনাকে কল করব
+                  {clientConfig.contact.submitNote}
                 </p>
               </div>
             </motion.div>

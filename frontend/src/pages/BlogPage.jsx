@@ -1,39 +1,9 @@
+import { clientConfig } from '@/config';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ArrowRight, User } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 
 const BlogPage = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'কেন চিজ দেখলে আমাদের ব্রেইন পাগল হয়ে যায়?',
-      excerpt: 'চিজের ভেতরে থাকা ক্যাসোমরফিন নামক একটি যৌগ আমাদের মস্তিষ্কে ডোপামিন রিলিজ করে। এই কারণেই গলানো চিজ দেখলে আমরা নিজেদের সামলাতে পারি না। জানুন বিজ্ঞানের পেছনের গল্প...',
-      image: 'https://images.unsplash.com/photo-1552539618-7eec9b4d1796?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80',
-      date: '১৫ জানুয়ারি, ২০২৬',
-      readTime: '৫ মিনিট',
-      author: 'বার্গার হাউস টিম',
-      category: 'খাবারের বিজ্ঞান',
-    },
-    {
-      id: 2,
-      title: 'অফিসের স্ট্রেস কাটানোর সবচেয়ে সহজ উপায়: এক প্লেট গরম পাস্তা!',
-      excerpt: 'সারাদিন কাজের চাপে যখন মাথা ঘোরে, তখন এক প্লেট ধোঁয়া ওঠা পাস্তা হতে পারে আপনার সেরা বন্ধু। কার্বোহাইড্রেট কীভাবে মুড ভালো করে, জানুন বিস্তারিত...',
-      image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80',
-      date: '১০ জানুয়ারি, ২০২৬',
-      readTime: '৪ মিনিট',
-      author: 'বার্গার হাউস টিম',
-      category: 'লাইফস্টাইল',
-    },
-    {
-      id: 3,
-      title: 'মুগদার খাবার সংস্কৃতি: আমাদের গর্ব, আমাদের স্বাদ',
-      excerpt: 'মুগদা এলাকায় খাবারের প্রতি মানুষের ভালোবাসা অন্যরকম। এখানকার প্রতিটি পরিবারে আছে নিজস্ব রান্নার ঐতিহ্য। বার্গার হাউস সেই ঐতিহ্যকে আধুনিকতার সাথে মিশিয়েছে...',
-      image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80',
-      date: '৫ জানুয়ারি, ২০২৬',
-      readTime: '৬ মিনিট',
-      author: 'বার্গার হাউস টিম',
-      category: 'আমাদের গল্প',
-    },
-  ];
+  const blogPosts = clientConfig.blog.posts;
 
   const fadeUp = {
     initial: { opacity: 0, y: 30 },
@@ -48,12 +18,14 @@ const BlogPage = () => {
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-16">
-            <span className="text-orange-400 font-medium uppercase tracking-wider text-sm">আমাদের ব্লগ</span>
+            <span className="font-medium uppercase tracking-wider text-sm" style={{ color: clientConfig.theme.primary }}>
+              {clientConfig.blog.headerLabel}
+            </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-4 mb-4">
-              খাবার নিয়ে <span className="text-gradient">গল্প</span>
+              {clientConfig.blog.title.split(' ')[0]} <span className="text-gradient">{clientConfig.blog.title.split(' ').slice(1).join(' ')}</span>
             </h1>
             <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
-              খাবার শুধু খাওয়া নয়, এর পেছনে আছে বিজ্ঞান, সংস্কৃতি এবং অনেক মজার তথ্য
+              {clientConfig.blog.subtitle}
             </p>
             <div className="section-divider mx-auto mt-6"></div>
           </motion.div>
@@ -77,7 +49,7 @@ const BlogPage = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                  <span className="inline-block bg-orange-500 text-black text-xs font-bold px-3 py-1 rounded-full mb-4">
+                  <span className="inline-block text-black text-xs font-bold px-3 py-1 rounded-full mb-4" style={{ backgroundColor: clientConfig.theme.primary }}>
                     {blogPosts[0].category}
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
@@ -152,25 +124,26 @@ const BlogPage = () => {
             className="mt-20 bg-zinc-900 rounded-2xl p-8 sm:p-12 text-center border border-white/5"
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              নতুন আপডেট পেতে চান?
+              {clientConfig.blog.newsletterTitle}
             </h3>
             <p className="text-zinc-400 mb-6 max-w-xl mx-auto">
-              আমাদের নতুন অফার, মেনু আপডেট এবং খাবার নিয়ে মজার তথ্য সবার আগে পেতে সাবস্ক্রাইব করুন
+              {clientConfig.blog.newsletterText}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
-                placeholder="আপনার ইমেইল লিখুন"
+                placeholder={clientConfig.blog.newsletterPlaceholder}
                 className="form-input flex-1"
                 data-testid="newsletter-email"
               />
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-orange-500 hover:bg-orange-600 text-black font-bold px-6 py-3 rounded-lg transition-all"
+                className="text-black font-bold px-6 py-3 rounded-lg transition-all"
+                style={{ backgroundColor: clientConfig.theme.primary }}
                 data-testid="newsletter-submit"
               >
-                সাবস্ক্রাইব
+                {clientConfig.blog.newsletterButton}
               </motion.button>
             </div>
           </motion.div>

@@ -1,10 +1,10 @@
+import { clientConfig } from '@/config';
 import { motion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
 
 const WhatsAppButton = () => {
   return (
     <motion.a
-      href="https://wa.me/8801917503580"
+      href={clientConfig.whatsapp.href}
       target="_blank"
       rel="noopener noreferrer"
       className="whatsapp-btn animate-pulse-glow"
@@ -14,7 +14,7 @@ const WhatsAppButton = () => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       data-testid="whatsapp-btn"
-      aria-label="WhatsApp এ মেসেজ করুন"
+      aria-label={clientConfig.whatsapp.ariaLabel}
     >
       <svg
         viewBox="0 0 24 24"
