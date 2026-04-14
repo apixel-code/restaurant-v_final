@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { clientConfig } from '@/config';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Flame } from 'lucide-react';
+import { Flame, ShoppingBag } from 'lucide-react';
+import { useState } from 'react';
 
 const MenuPage = ({ setCurrentPage }) => {
   const [activeCategory, setActiveCategory] = useState('all');
