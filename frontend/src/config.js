@@ -1,6 +1,6 @@
-const brandName = "বার্গার হাউস রেস্টুরেন্ট";
-const brandNameLatin = "Burger House Restaurant";
-const brandInitial = "ব";
+const brandName = "শুকরানা রেস্টুরেন্ট";
+const brandNameLatin = "Sukrana Restaurant";
+const brandInitial = "শ";
 const brandDescriptor = "রেস্টুরেন্ট";
 const brandTeam = `${brandName} টিম`;
 
@@ -17,32 +17,32 @@ const secondaryPhone = {
 const featuredItems = [
   {
     id: 1,
-    name: "সিগনেচার বিফ চিজ বার্গার",
+    name: "শুকরানা স্পেশাল বিরিয়ানি",
     description:
-      "জুসি বিফ প্যাটি, ডবল গলানো চিজ এবং আমাদের সিক্রেট সসের পারফেক্ট ব্লেন্ড যা মুখে দিলেই মিলিয়ে যাবে।",
-    price: "৩৫০",
+      "খাসির নরম মাংস আর বাসমতি চালের পারফেক্ট ব্লেন্ড যা মুখে দিলেই মিলিয়ে যাবে।",
+    price: "৪৫০",
     image:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1000&auto=format&fit=crop",
     badge: "বেস্ট সেলার",
   },
   {
     id: 2,
-    name: "ক্রিসপি চিকেন টাওয়ার বার্গার",
+    name: "তন্দুরি চিকেন প্ল্যাটার",
     description:
-      "মচমচে চিকেন প্যাটি, ফ্রেশ লেটুস আর প্রিমিয়াম মেয়োনিজের লেয়ারে সাজানো স্পেশাল বার্গার।",
-    price: "২৮০",
+      "মাটির উনুনে সেঁকা ঝাল ঝাল তন্দুরি চিকেন, সাথে থাকছে স্পেশাল পুদিনা চাটনি।",
+    price: "৩২০",
     image:
-      "https://images.unsplash.com/photo-1513185158878-8d8c196b8965?q=80&w=1000&auto=format&fit=crop",
-    badge: "জনপ্রিয়",
+      "https://images.unsplash.com/photo-1599487488170-d11ec9c175f0?q=80&w=1000&auto=format&fit=crop",
+    badge: "জনপ্রিয়",
   },
   {
     id: 3,
-    name: "স্মোকি বারবিকিউ বার্গার সেট",
+    name: "মুঘলাই পরোটা সেট",
     description:
-      "স্মোকি বারবিকিউ সস আর গ্রিলড প্যাটির সেট, পরিবেশন করা হয় মচমচে ফ্রেঞ্চ ফ্রাই এর সাথে।",
-    price: "৪২০",
+      "ডিম আর কিমার পুড় ঠাসা মচমচে পরোটা, পরিবেশন করা হয় আলুর দমের সাথে।",
+    price: "১৮০",
     image:
-      "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1626132646529-500637532537?q=80&w=1000&auto=format&fit=crop",
     badge: "সেট মেনু",
   },
 ];
@@ -50,11 +50,11 @@ const featuredItems = [
 const blogPosts = [
   {
     id: 1,
-    title: "কেন বার্গারের চিজ দেখলে আমাদের ব্রেইন পাগল হয়ে যায়?",
+    title: "কেন চিজ দেখলে আমাদের ব্রেইন পাগল হয়ে যায়?",
     excerpt:
       "চিজের ভেতরে থাকা ক্যাসোমরফিন নামক একটি যৌগ আমাদের মস্তিষ্কে ডোপামিন রিলিজ করে। এই কারণেই গলানো চিজ দেখলে আমরা নিজেদের সামলাতে পারি না। জানুন বিজ্ঞানের পেছনের গল্প...",
     image:
-      "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1552539618-7eec9b4d1796?q=80&w=800&auto=format&fit=crop",
     date: "১৫ জানুয়ারি, ২০২৬",
     readTime: "৫ মিনিট",
     author: brandTeam,
@@ -62,11 +62,11 @@ const blogPosts = [
   },
   {
     id: 2,
-    title: "অফিসের স্ট্রেস কাটানোর সবচেয়ে সহজ উপায়: এক কামড় গরম বার্গার!",
+    title: "অফিসের স্ট্রেস কাটানোর সবচেয়ে সহজ উপায়: এক প্লেট গরম পাস্তা!",
     excerpt:
-      "সারাদিন কাজের চাপে যখন মাথা ঘোরে, তখন এক প্লেট ধোঁয়া ওঠা জুসি বার্গার হতে পারে আপনার সেরা বন্ধু। কার্বোহাইড্রেট কীভাবে মুড ভালো করে, জানুন বিস্তারিত...",
+      "সারাদিন কাজের চাপে যখন মাথা ঘোরে, তখন এক প্লেট ধোঁয়া ওঠা পাস্তা হতে পারে আপনার সেরা বন্ধু। কার্বোহাইড্রেট কীভাবে মুড ভালো করে, জানুন বিস্তারিত...",
     image:
-      "https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=800&auto=format&fit=crop",
     date: "১০ জানুয়ারি, ২০২৬",
     readTime: "৪ মিনিট",
     author: brandTeam,
@@ -74,11 +74,11 @@ const blogPosts = [
   },
   {
     id: 3,
-    title: "বার্গার হাউসের খাবার সংস্কৃতি: আমাদের গর্ব, আমাদের স্বাদ",
+    title: "শুকরানার খাবার সংস্কৃতি: আমাদের গর্ব, আমাদের স্বাদ",
     excerpt:
-      "বার্গার হাউস রেস্টুরেন্ট আন্তর্জাতিক স্বাদকে দেশীয় ঐতিহ্যের সাথে মিশিয়েছে। এখানকার প্রতিটি বার্গারের আছে নিজস্ব রান্নার কারিশমা...",
+      "শুকরানা রেস্টুরেন্ট মুঘলাই ঐতিহ্যকে আধুনিকতার সাথে মিশিয়েছে। এখানকার প্রতিটি পরিবারে আছে নিজস্ব রান্নার ঐতিহ্য...",
     image:
-      "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop",
     date: "৫ জানুয়ারি, ২০২৬",
     readTime: "৬ মিনিট",
     author: brandTeam,
@@ -90,133 +90,133 @@ const menuItems = [
   {
     id: 1,
     category: "pizza",
-    name: "ক্লাসিক চিকেন বার্গার",
-    size: "রেগুলার",
-    price: "১৮০",
+    name: "চিকেন পিৎজা রেগুলার",
+    size: '৭" - ৯"',
+    price: "১৫০ - ২০০",
     image:
-      "https://images.unsplash.com/photo-1610614819513-58e34989848b?q=80&w=800&auto=format&fit=crop",
-    description: "রসালো চিকেন প্যাটি, মোজারেলা চিজ এবং স্পেশাল সস",
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop",
+    description: "রসালো চিকেন, মোজারেলা চিজ এবং স্পেশাল সস",
     popular: true,
   },
   {
     id: 2,
     category: "pizza",
-    name: "বিফ চিজ লাভার",
-    size: "রেগুলার",
-    price: "২৫০",
+    name: "সস পিৎজা",
+    size: '৭" - ৯"',
+    price: "১৫০ - ২০০",
     image:
-      "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?q=80&w=800&auto=format&fit=crop",
-    description: "বিফ প্যাটি, এক্সট্রা চিজ এবং সালাদ ড্রেসিং",
+      "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop",
+    description: "টম্যাটো সস, হার্ব এবং গলানো চিজ",
     popular: false,
   },
   {
     id: 3,
     category: "pizza",
-    name: "স্মোকি মাশরুম বার্গার",
-    size: "রেগুলার",
-    price: "২২০",
+    name: "মাশরুম পিৎজা",
+    size: '৭" - ৯"',
+    price: "১৫০ - ২০০",
     image:
-      "https://images.unsplash.com/photo-1520201163981-8cc95007dd2a?q=80&w=800&auto=format&fit=crop",
-    description: "ফ্রেশ মাশরুম, স্মোকি ফ্লেভার এবং চিজ",
+      "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=800&auto=format&fit=crop",
+    description: "ফ্রেশ মাশরুম, চিজ এবং ইতালিয়ান হার্ব",
     popular: false,
   },
   {
     id: 4,
     category: "pizza",
-    name: "ওভারলোড বিফ বার্গার",
-    size: "লার্জ",
-    price: "৪৫০",
+    name: "ওভারলোড চিকেন পিৎজা",
+    size: '৭" - ৯"',
+    price: "২০০ - ২৫০",
     image:
-      "https://images.unsplash.com/photo-1553979459-d2229ba7433b?q=80&w=800&auto=format&fit=crop",
-    description: "এক্সট্রা প্যাটি, ডবল চিজ এবং লোডেড টপিংস",
+      "https://images.unsplash.com/photo-1593504049359-74330189a355?q=80&w=800&auto=format&fit=crop",
+    description: "এক্সট্রা চিকেন, ডবল চিজ এবং লোডেড টপিংস",
     popular: true,
   },
   {
     id: 5,
     category: "pasta",
-    name: "ফ্রেঞ্চ ফ্রাই রেগুলার",
-    size: "১:১",
-    price: "৮০",
+    name: "এগ নুডলস",
+    size: "",
+    price: "৭০",
     image:
-      "https://images.unsplash.com/photo-1630384066202-18d1262a6b0a?q=80&w=800&auto=format&fit=crop",
-    description: "আলু দিয়ে তৈরি মচমচে ফ্রাই",
+      "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800&auto=format&fit=crop",
+    description: "ডিম দিয়ে তৈরি সুস্বাদু নুডলস",
     popular: false,
   },
   {
     id: 6,
     category: "pasta",
-    name: "নাগা ড্রামস্টিক",
-    size: "২ পিস",
-    price: "১৮০",
+    name: "চিকেন নুডলস",
+    size: "",
+    price: "১০০",
     image:
-      "https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=800&auto=format&fit=crop",
-    description: "অতিরিক্ত ঝাল এবং ক্রিসপি চিকেন",
+      "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=800&auto=format&fit=crop",
+    description: "টেন্ডার চিকেন পিস সহ নুডলস",
     popular: true,
   },
   {
     id: 7,
     category: "pasta",
-    name: "চিকেন নাগেটস",
-    size: "৬ পিস",
-    price: "১৫০",
+    name: "পাস্তা রেগুলার",
+    size: "",
+    price: "৭০",
     image:
-      "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?q=80&w=800&auto=format&fit=crop",
-    description: "ক্লাসিক ঘরোয়া স্টাইল চিকেন নাগেটস",
+      "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=800&auto=format&fit=crop",
+    description: "ক্লাসিক ইতালিয়ান স্টাইল পাস্তা",
     popular: false,
   },
   {
     id: 8,
     category: "pasta",
-    name: "চিকেন উইংস",
-    size: "৪ পিস",
-    price: "১৬০",
+    name: "চিকেন পাস্তা",
+    size: "",
+    price: "১০০",
     image:
-      "https://images.unsplash.com/photo-1527477396000-e27163b481c2?q=80&w=800&auto=format&fit=crop",
-    description: "ক্রিসপি সস এবং ফ্রাইড চিকেন উইংস",
+      "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=800&auto=format&fit=crop",
+    description: "ক্রিমি সস এবং গ্রিলড চিকেন",
     popular: true,
   },
   {
     id: 9,
     category: "pasta",
-    name: "পটেটো ওয়েজেস",
-    size: "১:১",
-    price: "১০০",
+    name: "চিজ পাস্তা",
+    size: "",
+    price: "১৫০",
     image:
-      "https://images.unsplash.com/photo-1619860860774-1e2e17343432?q=80&w=800&auto=format&fit=crop",
-    description: "এক্সট্রা ক্রিসপি এবং মশলাদার",
+      "https://images.unsplash.com/photo-1608897013039-887f21d8c804?q=80&w=800&auto=format&fit=crop",
+    description: "এক্সট্রা চিজি এবং ক্রিমি",
     popular: true,
   },
   {
     id: 10,
     category: "setmenu",
-    name: "বার্গার + ফ্রেঞ্চ ফ্রাই",
+    name: "ফ্রাইড রাইস + ক্রিসপি চিকেন",
     size: "",
-    price: "২৫০",
+    price: "১৩০",
     image:
-      "https://images.unsplash.com/photo-1534790561325-06900693f947?q=80&w=800&auto=format&fit=crop",
-    description: "গরম বার্গার এবং ক্রিসপি ফ্রেঞ্চ ফ্রাই",
+      "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=800&auto=format&fit=crop",
+    description: "গরম ফ্রাইড রাইস এবং ক্রিসপি ফ্রাইড চিকেন",
     popular: true,
   },
   {
     id: 11,
     category: "setmenu",
-    name: "বার্গার + উইংস + ড্রিঙ্কস",
+    name: "ফ্রাইড রাইস + চিকেন কারি",
     size: "",
-    price: "৩৮০",
+    price: "১৩০",
     image:
-      "https://images.unsplash.com/photo-1521305916504-4a1121188589?q=80&w=800&auto=format&fit=crop",
-    description: "কম্প্লিট মিল - বার্গার, উইংস এবং পানীয়",
+      "https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=800&auto=format&fit=crop",
+    description: "ফ্রাইড রাইস এবং ঝাল চিকেন কারি",
     popular: false,
   },
   {
     id: 12,
     category: "setmenu",
-    name: "ফ্যামিলি বার্গার বক্স",
+    name: "ফ্রাইড রাইস + ক্রিসপি চিকেন + কারি",
     size: "",
-    price: "৯৫০",
+    price: "২০০",
     image:
-      "https://images.unsplash.com/photo-1623231278267-3765430d0ec2?q=80&w=800&auto=format&fit=crop",
-    description: "৪টি বার্গার, ফ্রাই এবং কোক বক্স",
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop",
+    description: "কমপ্লিট মিল - ভাত, চিকেন এবং কারি",
     popular: true,
   },
 ];
@@ -228,9 +228,9 @@ export const clientConfig = {
     initial: brandInitial,
     descriptor: brandDescriptor,
     shortTagline: "আভিজাত্য আর স্বাদের অনন্য মিলন",
-    intro: "বার্গার হাউস রেস্টুরেন্টে আপনার প্রতিটি কামড় হোক তৃপ্তির উৎস।",
-    slogan: "তৃপ্তির শেষ কথা, বার্গার হাউস রেস্টুরেন্ট!",
-    whyChooseLabel: "কেন বার্গার হাউস?",
+    intro: "শুকরানা রেস্টুরেন্টে আপনার প্রতিটি কামড় হোক তৃপ্তির উৎস।",
+    slogan: "তৃপ্তির শেষ কথা, শুকরানা রেস্টুরেন্ট!",
+    whyChooseLabel: "কেন শুকরানা?",
     copyright: `${brandName}। সর্বস্বত্ব সংরক্ষিত।`,
     footerTagline: "সেরা স্বাদের বিশ্বস্ত ঠিকানা",
     teamName: brandTeam,
@@ -259,7 +259,7 @@ export const clientConfig = {
     primaryPhone,
     secondaryPhone,
     whatsappNumber: "8801716029315",
-    addressLines: ["আপনার বার্গার শপের ঠিকানা", "শহর, বাংলাদেশ"],
+    addressLines: ["আপনার রেস্টুরেন্টের ঠিকানা", "শহর, বাংলাদেশ"],
     hoursLines: ["সকাল ১১:০০ - রাত ১১:০০", "প্রতিদিন খোলা"],
     mapTitle: `${brandNameLatin} Location`,
     mapEmbedUrl:
@@ -272,21 +272,21 @@ export const clientConfig = {
     shortOrderLabel: "WhatsApp এ অর্ডার",
   },
   hero: {
-    badge: "শহরের সেরা বার্গার",
-    headlineTop: "ক্ষুধা মেটানোর সাধারণ বার্গার নয়,",
+    badge: "শহরের সেরা স্বাদ",
+    headlineTop: "ক্ষুধা মেটানোর সাধারণ খাবার নয়,",
     headlineBottom: "এক চরম তৃপ্তির বিস্ফোরণ!",
     backgroundImage:
-      "https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=2000&auto=format&fit=crop",
     subheadlinePrefix:
-      "সারাদিনের ক্লান্তি শেষে প্রিয়জনদের সাথে এক কামড়েই মন ভালো করার গ্যারান্টি। বার্গার হাউস রেস্টুরেন্ট দিচ্ছে ",
+      "সারাদিনের ক্লান্তি শেষে প্রিয়জনদের সাথে এক কামড়েই মন ভালো করার গ্যারান্টি। শুকরানা রেস্টুরেন্ট দিচ্ছে ",
     subheadlineBrand: brandName,
-    subheadlineSuffix: " গরম, রসালো এবং জিভে জল আনা বার্গারের প্রতিশ্রুতি।",
+    subheadlineSuffix: " গরম, রসালো এবং জিভে জল আনা স্বাদের প্রতিশ্রুতি।",
     menuCta: "মেনু দেখুন",
     orderCta: "গরম গরম অর্ডার করুন",
   },
   home: {
     featuredSectionLabel: "আমাদের স্পেশাল",
-    featuredSectionTitle: "জিভে জল আনা বার্গার",
+    featuredSectionTitle: "জিভে জল আনা আইটেম",
     featuredItems,
     whyChooseSectionLabel: brandTeam,
     whyChooseSectionTitle: "আমাদের বিশেষত্ব",
@@ -300,7 +300,7 @@ export const clientConfig = {
       {
         icon: "⚡",
         title: "দ্রুত ডেলিভারি",
-        description: "আপনার এলাকায় সবচেয়ে দ্রুত ডেলিভারি সার্ভিস",
+        description: "আপনার এলাকায় সবচেয়ে দ্রুত ডেলিভারি সার্ভিস",
       },
       {
         icon: "💯",
@@ -316,14 +316,14 @@ export const clientConfig = {
     viewAllButton: "সম্পূর্ণ মেনু দেখুন",
   },
   menu: {
-    headerLabel: "সুস্বাদু বার্গার",
+    headerLabel: "সুস্বাদু খাবার",
     title: "আমাদের মেনু",
-    subtitle: "প্রতিটি বার্গার তাজা উপকরণ দিয়ে ভালোবাসা সহকারে তৈরি",
+    subtitle: "প্রতিটি আইটেম তাজা উপকরণ দিয়ে ভালোবাসা সহকারে তৈরি",
     categories: [
       { id: "all", label: "সব আইটেম" },
-      { id: "pizza", label: "প্রিমিয়াম বার্গার" },
-      { id: "pasta", label: "সাইড ডিশ" },
-      { id: "setmenu", label: "কম্বো সেট" },
+      { id: "pizza", label: "পিৎজা" },
+      { id: "pasta", label: "চাউমিন/পাস্তা" },
+      { id: "setmenu", label: "সেট মেনু" },
     ],
     items: menuItems,
     popularLabel: "জনপ্রিয়",
@@ -333,7 +333,7 @@ export const clientConfig = {
   },
   blog: {
     headerLabel: "আমাদের ব্লগ",
-    title: "বার্গার নিয়ে গল্প",
+    title: "খাবার নিয়ে গল্প",
     subtitle:
       "খাবার শুধু খাওয়া নয়, এর পেছনে আছে বিজ্ঞান, সংস্কৃতি এবং অনেক মজার তথ্য",
     posts: blogPosts,
@@ -348,7 +348,7 @@ export const clientConfig = {
     title: "অর্ডার",
     titleAccent: "করুন",
     subtitle:
-      "গরম গরম সুস্বাদু বার্গার এখনই অর্ডার করুন। দ্রুত ডেলিভারি নিশ্চিত।",
+      "গরম গরম সুস্বাদু খাবার এখনই অর্ডার করুন। দ্রুত ডেলিভারি নিশ্চিত।",
     infoTitle: "যোগাযোগের তথ্য",
     orderFormTitle: "অর্ডার ফর্ম",
     orderFormSubtitle: "নিচের ফর্ম পূরণ করে অর্ডার করুন",
@@ -363,12 +363,12 @@ export const clientConfig = {
       name: "নাম লিখুন",
       phone: "01XXXXXXXXX",
       address: "সম্পূর্ণ ঠিকানা লিখুন",
-      item: "যেমন: বিফ বার্গার ২টি, চিকেন উইংস ১টি",
+      item: "যেমন: চিকেন পিৎজা ২টি, চিকেন পাস্তা ১টি",
     },
     infoCards: [
       {
         title: "ঠিকানা",
-        details: ["আপনার বার্গার শপের ঠিকানা", "শহর, বাংলাদেশ"],
+        details: ["আপনার রেস্টুরেন্টের ঠিকানা", "শহর, বাংলাদেশ"],
       },
       {
         title: "ফোন নম্বর",
@@ -381,8 +381,7 @@ export const clientConfig = {
       },
     ],
     mapTitle: `${brandNameLatin} Location`,
-    successMessage:
-      "অসাধারণ সিদ্ধান্ত! আপনার গরম ও সুস্বাদু বার্গার তৈরি হচ্ছে।",
+    successMessage: "অসাধারণ সিদ্ধান্ত! আপনার গরম ও সুস্বাদু খাবার তৈরি হচ্ছে।",
     validationMessage: "অনুগ্রহ করে সব ফিল্ড পূরণ করুন",
     errorMessage: "অর্ডার সাবমিট করতে সমস্যা হয়েছে",
     processingText: "প্রসেসিং...",
@@ -449,14 +448,14 @@ export const clientConfig = {
       imageLabel: "ছবির URL",
       popularLabel: "জনপ্রিয় আইটেম",
       categoryOptions: {
-        pizza: "বার্গার",
-        pasta: "সাইড ডিশ",
-        setmenu: "কম্বো সেট",
+        pizza: "পিৎজা",
+        pasta: "চাউমিন/পাস্তা",
+        setmenu: "সেট মেনু",
       },
-      namePlaceholder: "বিফ বার্গার",
-      pricePlaceholder: "৩৫০",
-      sizePlaceholder: "রেগুলার",
-      descriptionPlaceholder: "রসালো বিফ, চিজ...",
+      namePlaceholder: "চিকেন পিৎজা",
+      pricePlaceholder: "১৫০",
+      sizePlaceholder: '৭" - ৯"',
+      descriptionPlaceholder: "রসালো চিকেন, চিজ...",
       imagePlaceholder: "https://...",
       submitNew: "যোগ করুন",
       submitEdit: "আপডেট করুন",
