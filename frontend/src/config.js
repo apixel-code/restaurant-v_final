@@ -276,7 +276,7 @@ export const clientConfig = {
     headlineTop: "ক্ষুধা মেটানোর সাধারণ খাবার নয়,",
     headlineBottom: "এক চরম তৃপ্তির বিস্ফোরণ!",
     backgroundImage:
-      "https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.1.0&auto=format&fit=crop&w=2000&q=80",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=2000&auto=format&fit=crop",
     subheadlinePrefix:
       "সারাদিনের ক্লান্তি শেষে প্রিয়জনদের সাথে এক কামড়েই মন ভালো করার গ্যারান্টি। শুকরানা রেস্টুরেন্ট দিচ্ছে ",
     subheadlineBrand: brandName,
